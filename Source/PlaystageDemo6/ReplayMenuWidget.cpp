@@ -23,9 +23,10 @@ void UReplayMenuWidget::StopRecording()
     }
 }
 
-void UReplayMenuWidget::ShowReplayList()
+TArray<FString> UReplayMenuWidget::ShowReplayList()
 {
     TArray<FString> ReplayList = GetReplayList();
+	return ReplayList;
     // Populate your ScrollBox or ListView with ReplayList
 }
 

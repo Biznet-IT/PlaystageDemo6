@@ -22,7 +22,7 @@ public:
     void StopRecording();
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
-    void ShowReplayList();
+    TArray<FString> ShowReplayList();
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void SearchReplay(const FString& SearchText);
