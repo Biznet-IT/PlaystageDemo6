@@ -47,6 +47,16 @@ void UReplayMenuWidget::SearchReplay(const FString& SearchText)
     // Populate your ScrollBox or ListView with filtered ReplayList
 }
 
+void UReplayMenuWidget::PlayReplay(const FString& ReplayName)
+{
+	FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
+	FString ReplayPath = ReplayDirectory / ReplayName;
+	if (AReplayPlayerController* PlayerController = Cast<AReplayPlayerController>(GetWorld()->GetFirstPlayerController()))
+	{
+		PlayerController->PlayReplay(ReplayPath);
+	}
+}
+
 void UReplayMenuWidget::RenameReplay(const FString& OldName, const FString& NewName)
 {
     FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");

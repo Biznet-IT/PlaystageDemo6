@@ -28,6 +28,9 @@ public:
     void SearchReplay(const FString& SearchText);
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
+	void PlayReplay(const FString& ReplayName);
+
+    UFUNCTION(BlueprintCallable, Category = "Replays")
     void RenameReplay(const FString& OldName, const FString& NewName);
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
