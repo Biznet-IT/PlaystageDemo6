@@ -49,6 +49,14 @@ void UReplayControlWidget::RestartReplay()
 void UReplayControlWidget::CreateEditableCamera()
 {
     // Implement logic to create and place an editable camera at the current replay time
+    if (UWorld* World = GetWorld())
+    {
+        FVector CameraLocation = World->GetFirstPlayerController()->GetPawn()->GetActorLocation();
+        FRotator CameraRotation = World->GetFirstPlayerController()->GetPawn()->GetActorRotation();
+
+        ACameraActor* NewCamera = World->SpawnActor<ACameraActor>(CameraLocation, CameraRotation);
+        // Additional logic to store and manage the new camera actor
+    }
 }
 
 void UReplayControlWidget::SeekReplay(float Time)
