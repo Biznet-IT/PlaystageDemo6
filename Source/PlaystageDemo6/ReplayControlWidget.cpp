@@ -5,6 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "Engine/DemoNetDriver.h"
+#include "Camera/CameraActor.h"
 
 void UReplayControlWidget::PlayReplay()
 {

@@ -36,4 +36,3 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Replay Control")
     void SeekReplay(float Time);
 };
-};

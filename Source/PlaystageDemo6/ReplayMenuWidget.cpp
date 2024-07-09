@@ -9,7 +9,7 @@
 
 void UReplayMenuWidget::StartRecording()
 {
-    if (AReplayPlayerControllerB* PlayerController = Cast<AReplayPlayerControllerB>(GetWorld()->GetFirstPlayerController()))
+    if (AReplayPlayerController* PlayerController = Cast<AReplayPlayerController>(GetWorld()->GetFirstPlayerController()))
     {
         PlayerController->StartRecording();
     }
@@ -17,7 +17,7 @@ void UReplayMenuWidget::StartRecording()
 
 void UReplayMenuWidget::StopRecording()
 {
-    if (AReplayPlayerControllerB* PlayerController = Cast<AReplayPlayerControllerB>(GetWorld()->GetFirstPlayerController()))
+    if (AReplayPlayerController* PlayerController = Cast<AReplayPlayerController>(GetWorld()->GetFirstPlayerController()))
     {
         PlayerController->StopRecording();
     }
