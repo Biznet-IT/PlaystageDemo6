@@ -4,6 +4,8 @@
 #include "ReplayListItem.h"
 #include "ReplayMenuWidget.h"
 #include "Components/TextBlock.h"
+//include panel widget
+#include "Components/PanelWidget.h"
 
 
 void UReplayListItem::OnPlayClicked()
