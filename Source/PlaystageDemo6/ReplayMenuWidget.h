@@ -15,28 +15,21 @@ class PLAYSTAGEDEMO6_API UReplayMenuWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-    UFUNCTION(BlueprintCallable, Category = "Replays")
-    void StartRecording();
+    UPROPERTY(meta = (BindWidget))
+    class UListView* ListView_Replays;
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
-    void StopRecording();
+    void PopulateReplayList();
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
-    TArray<FString> ShowReplayList();
+    void PlayReplay(const FString& ReplayName);
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
-    void SearchReplay(const FString& SearchText);
-
-    UFUNCTION(BlueprintCallable, Category = "Replays")
-	void PlayReplay(const FString& ReplayName);
-
-    UFUNCTION(BlueprintCallable, Category = "Replays")
-    void RenameReplay(const FString& OldName, const FString& NewName);
+    void RenameReplay(const FString& OldReplayName, const FString& NewReplayName);
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void DeleteReplay(const FString& ReplayName);
 
-private:
     UFUNCTION(BlueprintCallable, Category = "Replays")
-    TArray<FString> GetReplayList();
+    void SearchReplays(const FString& SearchText);
 };

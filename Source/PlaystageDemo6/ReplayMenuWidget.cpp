@@ -3,72 +3,65 @@
 
 #include "ReplayMenuWidget.h"
 #include "ReplayPlayerController.h"
+#include "ReplayListItem.h"
 #include "Engine/World.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Components/ListView.h"
 
-void UReplayMenuWidget::StartRecording()
-{
-    if (AReplayPlayerController* PlayerController = Cast<AReplayPlayerController>(GetWorld()->GetFirstPlayerController()))
-    {
-        PlayerController->StartRecording();
-    }
-}
 
-void UReplayMenuWidget::StopRecording()
+void UReplayMenuWidget::PopulateReplayList()
 {
-    if (AReplayPlayerController* PlayerController = Cast<AReplayPlayerController>(GetWorld()->GetFirstPlayerController()))
-    {
-        PlayerController->StopRecording();
-    }
-}
+    if (!ListView_Replays) return;
 
-TArray<FString> UReplayMenuWidget::ShowReplayList()
-{
-    TArray<FString> ReplayList = GetReplayList();
-	return ReplayList;
-    // Populate your ScrollBox or ListView with ReplayList
-}
+    ListView_Replays->ClearListItems();
 
-TArray<FString> UReplayMenuWidget::GetReplayList()
-{
-    TArray<FString> ReplayList;
     IFileManager& FileManager = IFileManager::Get();
     FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
-    FileManager.FindFiles(ReplayList, *ReplayDirectory, TEXT("*.demo"));
-    return ReplayList;
-}
+    TArray<FString> ReplayFiles;
+    FileManager.FindFiles(ReplayFiles, *ReplayDirectory, TEXT("*.demo"));
 
-void UReplayMenuWidget::SearchReplay(const FString& SearchText)
-{
-    TArray<FString> ReplayList = GetReplayList();
-    ReplayList.RemoveAll([&SearchText](const FString& Replay) {
-        return !Replay.Contains(SearchText);
-        });
-    // Populate your ScrollBox or ListView with filtered ReplayList
+    for (const FString& ReplayFile : ReplayFiles)
+    {
+        UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
+        ListItem->ReplayName = FPaths::GetBaseFilename(ReplayFile);
+        ListView_Replays->AddItem(ListItem);
+    }
 }
 
 void UReplayMenuWidget::PlayReplay(const FString& ReplayName)
 {
-	FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
-	FString ReplayPath = ReplayDirectory / ReplayName;
-	if (AReplayPlayerController* PlayerController = Cast<AReplayPlayerController>(GetWorld()->GetFirstPlayerController()))
-	{
-		PlayerController->PlayReplay(ReplayPath);
-	}
+    // Call function to play replay using the replay name
 }
 
-void UReplayMenuWidget::RenameReplay(const FString& OldName, const FString& NewName)
+void UReplayMenuWidget::RenameReplay(const FString& OldReplayName, const FString& NewReplayName)
 {
-    FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
-    FString OldPath = ReplayDirectory / OldName;
-    FString NewPath = ReplayDirectory / NewName;
-    IFileManager::Get().Move(*NewPath, *OldPath);
+    // Call function to rename the replay
 }
 
 void UReplayMenuWidget::DeleteReplay(const FString& ReplayName)
 {
+    // Call function to delete the replay
+}
+
+void UReplayMenuWidget::SearchReplays(const FString& SearchText)
+{
+    if (!ListView_Replays) return;
+
+    ListView_Replays->ClearListItems();
+
+    IFileManager& FileManager = IFileManager::Get();
     FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
-    FString ReplayPath = ReplayDirectory / ReplayName;
-    IFileManager::Get().Delete(*ReplayPath);
+    TArray<FString> ReplayFiles;
+    FileManager.FindFiles(ReplayFiles, *ReplayDirectory, TEXT("*.demo"));
+
+    for (const FString& ReplayFile : ReplayFiles)
+    {
+        if (ReplayFile.Contains(SearchText))
+        {
+            UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
+            ListItem->ReplayName = FPaths::GetBaseFilename(ReplayFile);
+            ListView_Replays->AddItem(ListItem);
+        }
+    }
 }
