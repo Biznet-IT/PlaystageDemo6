@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "ReplayGameInstance.h"
 #include "ReplayListItem.generated.h"
 
 /**
@@ -15,8 +16,13 @@ class PLAYSTAGEDEMO6_API UReplayListItem : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+    UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+    class UEditableTextBox* EditableTextBox_ReplayName;
+
     UPROPERTY(BlueprintReadOnly, Category = "Replays")
-    FString ReplayName;
+    FS_ReplayInfo ReplayInfo;
+
+    virtual void NativeConstruct() override;
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void OnPlayClicked();
@@ -26,4 +32,6 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void OnDeleteClicked();
+
+    void Initialize(const FS_ReplayInfo& InReplayInfo);
 };

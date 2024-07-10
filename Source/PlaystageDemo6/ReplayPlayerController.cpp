@@ -41,3 +41,23 @@ void AReplayPlayerController::PlayReplay(const FString& ReplayName)
         PlayerController->ConsoleCommand(FString::Printf(TEXT("DemoPlay %s"), *ReplayName), true);
     }
 }
+
+void AReplayPlayerController::RenameReplay(const FString& OldReplayName, const FString& NewReplayName)
+{
+	UWorld* World = GEngine->GameViewport->GetWorld();
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (PlayerController)
+	{
+		PlayerController->ConsoleCommand(FString::Printf(TEXT("RenameDemo %s %s"), *OldReplayName, *NewReplayName), true);
+	}
+}
+
+void AReplayPlayerController::DeleteReplay(const FString& ReplayName)
+{
+	UWorld* World = GEngine->GameViewport->GetWorld();
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (PlayerController)
+	{
+		PlayerController->ConsoleCommand(FString::Printf(TEXT("DeleteDemo %s"), *ReplayName), true);
+	}
+}

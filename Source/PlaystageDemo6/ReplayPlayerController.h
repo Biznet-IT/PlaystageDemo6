@@ -27,6 +27,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void PlayReplay(const FString& ReplayName);
 
+	//function to rename a replay
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+	void RenameReplay(const FString& OldReplayName, const FString& NewReplayName);
+
+	//function to delete a replay
+	UFUNCTION(BlueprintCallable, Category = "Replays")  
+	void DeleteReplay(const FString& ReplayName);
+
 private:
     FString GetTimestamp() const;
 };

@@ -4,11 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "ReplayListItem.h"
+#include "ReplayGameInstance.h"
 #include "ReplayMenuWidget.generated.h"
 
 /**
  * 
  */
+
 UCLASS()
 class PLAYSTAGEDEMO6_API UReplayMenuWidget : public UUserWidget
 {
@@ -16,7 +19,7 @@ class PLAYSTAGEDEMO6_API UReplayMenuWidget : public UUserWidget
 	
 public:
     UPROPERTY(meta = (BindWidget))
-    class UListView* ListView_Replays;
+    class UScrollBox* ScrollBox_Replays;
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void PopulateReplayList();

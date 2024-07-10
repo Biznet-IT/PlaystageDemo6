@@ -8,26 +8,31 @@
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Components/ListView.h"
+#include "Components/ScrollBox.h"
+#include "ReplayGameInstance.h"
 
 
 void UReplayMenuWidget::PopulateReplayList()
 {
-    if (!ListView_Replays) return;
+    if (!ScrollBox_Replays) return;
 
-    ListView_Replays->ClearListItems();
+    ScrollBox_Replays->ClearChildren();
 
-    IFileManager& FileManager = IFileManager::Get();
-    FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
-    TArray<FString> ReplayFiles;
-    FileManager.FindFiles(ReplayFiles, *ReplayDirectory, TEXT("*.demo"));
-
-    for (const FString& ReplayFile : ReplayFiles)
+    UReplayGameInstance* GameInstance = Cast<UReplayGameInstance>(GetGameInstance());
+    if (GameInstance)
     {
-        UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
-        ListItem->ReplayName = FPaths::GetBaseFilename(ReplayFile);
-        ListView_Replays->AddItem(ListItem);
+        TArray<FS_ReplayInfo> ReplayInfos;
+        GameInstance->GetReplayInfo(ReplayInfos);
+
+        for (const FS_ReplayInfo& ReplayInfo : ReplayInfos)
+        {
+            UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
+            ListItem->Initialize(ReplayInfo);
+            ScrollBox_Replays->AddChild(ListItem);
+        }
     }
 }
+
 
 void UReplayMenuWidget::PlayReplay(const FString& ReplayName)
 {
@@ -46,22 +51,24 @@ void UReplayMenuWidget::DeleteReplay(const FString& ReplayName)
 
 void UReplayMenuWidget::SearchReplays(const FString& SearchText)
 {
-    if (!ListView_Replays) return;
+    if (!ScrollBox_Replays) return;
 
-    ListView_Replays->ClearListItems();
+    ScrollBox_Replays->ClearChildren();
 
-    IFileManager& FileManager = IFileManager::Get();
-    FString ReplayDirectory = FPaths::ProjectSavedDir() / TEXT("Demos");
-    TArray<FString> ReplayFiles;
-    FileManager.FindFiles(ReplayFiles, *ReplayDirectory, TEXT("*.demo"));
-
-    for (const FString& ReplayFile : ReplayFiles)
+    UReplayGameInstance* GameInstance = Cast<UReplayGameInstance>(GetGameInstance());
+    if (GameInstance)
     {
-        if (ReplayFile.Contains(SearchText))
+        TArray<FS_ReplayInfo> ReplayInfos;
+        GameInstance->GetReplayInfo(ReplayInfos);
+
+        for (const FS_ReplayInfo& ReplayInfo : ReplayInfos)
         {
-            UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
-            ListItem->ReplayName = FPaths::GetBaseFilename(ReplayFile);
-            ListView_Replays->AddItem(ListItem);
+            if (ReplayInfo.Name.Contains(SearchText) || ReplayInfo.FriendlyName.Contains(SearchText))
+            {
+                UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
+                ListItem->Initialize(ReplayInfo);
+                ScrollBox_Replays->AddChild(ListItem);
+            }
         }
     }
 }
