@@ -17,7 +17,7 @@ class PLAYSTAGEDEMO6_API AReplayPlayerController : public APlayerController
 public:
     //function to start recording a replay
     UFUNCTION(BlueprintCallable, Category = "Replays")
-    void StartRecording();
+    FString StartRecording();
 
     //function to stop recording a replay
     UFUNCTION(BlueprintCallable, Category = "Replays")
@@ -56,6 +56,10 @@ public:
 	/* Changes the PlayRate of the Replay we are watching, enabling FastForward or SlowMotion */
 	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
 	void SetCurrentReplayPlayRate(float PlayRate = 1.f);
+
+	/* Stop current Replay and return */
+	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
+	void StopCurrentReplay();
 
 private:
     FString GetTimestamp() const;

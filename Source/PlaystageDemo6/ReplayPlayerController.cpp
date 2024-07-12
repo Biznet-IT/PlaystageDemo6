@@ -12,7 +12,7 @@ FString AReplayPlayerController::GetTimestamp() const
     return Now.ToString(TEXT("%Y%m%d%H%M%S"));
 }
 
-void AReplayPlayerController::StartRecording()
+FString AReplayPlayerController::StartRecording()
 {
     UWorld* World = GEngine->GameViewport->GetWorld();
     APlayerController* PlayerController = World->GetFirstPlayerController();
@@ -20,7 +20,9 @@ void AReplayPlayerController::StartRecording()
     {
         FString ReplayName = FString::Printf(TEXT("Replay_%s"), *GetTimestamp());
         PlayerController->ConsoleCommand(FString::Printf(TEXT("DemoRec %s"), *ReplayName), true);
+		return ReplayName;
     }
+	return "";
 }
 
 void AReplayPlayerController::StopRecording()
@@ -142,6 +144,17 @@ void AReplayPlayerController::SetCurrentReplayPlayRate(float PlayRate)
 		if (GetWorld()->GetDemoNetDriver())
 		{
 			GetWorld()->GetWorldSettings()->DemoPlayTimeDilation = PlayRate;
+		}
+	}
+}
+
+void AReplayPlayerController::StopCurrentReplay()
+{
+	if (GetWorld())
+	{
+		if (GetWorld()->GetDemoNetDriver())
+		{
+			GetWorld()->GetDemoNetDriver()->StopDemo();
 		}
 	}
 }
