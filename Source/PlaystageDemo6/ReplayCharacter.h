@@ -15,6 +15,9 @@ public:
 	// Sets default values for this character's properties
 	AReplayCharacter();
 
+	UFUNCTION(BlueprintCallable, Category = "Character Customization")
+	void SetCharacterMeshAndAnimBP(TSubclassOf<AReplayCharacter> CharacterClass, USkeletalMesh* Mesh, UClass* AnimBP);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

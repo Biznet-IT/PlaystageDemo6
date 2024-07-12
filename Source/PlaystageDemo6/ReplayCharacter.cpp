@@ -2,6 +2,10 @@
 
 
 #include "ReplayCharacter.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Animation/AnimBlueprint.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AReplayCharacter::AReplayCharacter()
@@ -32,3 +36,34 @@ void AReplayCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+void AReplayCharacter::SetCharacterMeshAndAnimBP(TSubclassOf<AReplayCharacter> CharacterClass, USkeletalMesh* Mesh, UClass* AnimBP)
+{
+	if (CharacterClass)
+	{
+		AReplayCharacter* ReplayCharacter = CharacterClass->GetDefaultObject<AReplayCharacter>();
+
+		if (ReplayCharacter)
+		{
+			GetMesh()->SetSkeletalMesh(ReplayCharacter->GetMesh()->SkeletalMesh);
+			GetMesh()->SetAnimInstanceClass(ReplayCharacter->GetMesh()->AnimClass);
+
+			// Assuming the mesh change needs to be replicated
+			OnRep_CharacterMesh();
+		}
+	}
+
+}
+
+void AReplayCharacter::OnRep_CharacterMesh()
+{
+	//GetMesh()->SetSkeletalMesh(GetMesh()->SkeletalMesh);
+	//GetMesh()->SetAnimInstanceClass(GetMesh()->AnimClass);
+}
+
+void AReplayCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	//Add properties to replicate
+	//DOREPLIFETIME(AReplayCharacter, Mesh);
+}
