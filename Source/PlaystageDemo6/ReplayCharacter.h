@@ -6,6 +6,35 @@
 #include "GameFramework/Character.h"
 #include "ReplayCharacter.generated.h"
 
+USTRUCT(BlueprintType)
+struct FCharacterInfo
+{
+	GENERATED_BODY()
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMesh* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UAnimInstance> AnimBP;
+
+	FCharacterInfo()
+	
+		: Mesh(nullptr), AnimBP(nullptr)
+		{
+
+		}
+	FCharacterInfo(USkeletalMesh* InMesh, TSubclassOf<UAnimInstance> InAnimBP)
+
+		: Mesh(InMesh), AnimBP(InAnimBP)
+	{
+
+	}
+};
+
+/**
+ *
+ */
 UCLASS()
 class PLAYSTAGEDEMO6_API AReplayCharacter : public ACharacter
 {
@@ -16,17 +45,16 @@ public:
 	AReplayCharacter();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Customization")
-	void SetCharacterMeshAndAnimBP(TSubclassOf<AReplayCharacter> CharacterClass, USkeletalMesh* Mesh, UClass* AnimBP);
+	void SetCharacterMeshAndAnimBP(FCharacterInfo CharacterInfo);
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(ReplicatedUsing = OnRep_CharacterMesh)
+	FCharacterInfo CharacterInfo;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UFUNCTION()
+	void OnRep_CharacterInfo();
 
 };
