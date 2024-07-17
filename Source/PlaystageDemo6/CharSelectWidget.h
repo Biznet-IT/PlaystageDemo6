@@ -19,9 +19,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Character Selection")
     void SelectCharacter(int32 CharacterIndex);
 
+    UFUNCTION(BlueprintCallable, Category = "Character Selection")
+    void FilterCharactersByName(const FString& Name);
+
+    UFUNCTION(BlueprintCallable, Category = "Character Selection")
+    void FilterCharactersByTag(const FString& Tag);
+
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Selection")
     TArray<FCharacterInfo> CharacterInfos;
 
-    //virtual void NativeConstruct() override;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Selection")
+    TArray<FCharacterInfo> FilteredCharacterInfos;
+
+    virtual void NativeConstruct() override;
+    //void UpdateCharacterList();
 };

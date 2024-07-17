@@ -24,16 +24,17 @@ struct FCharacterInfo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString Name;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FString> Tags;
+
 	FCharacterInfo()
-	
 		: Mesh(nullptr), AnimBP(nullptr), Thumbnail(nullptr), Name(TEXT(""))
-		{
-
-		}
-	FCharacterInfo(USkeletalMesh* InMesh, TSubclassOf<UAnimInstance> InAnimBP, UTexture2D* InThumbnail, FString InName)
-		: Mesh(InMesh), AnimBP(InAnimBP), Thumbnail(InThumbnail), Name(InName)
 	{
+	}
 
+	FCharacterInfo(USkeletalMesh* InMesh, TSubclassOf<UAnimInstance> InAnimBP, UTexture2D* InThumbnail, FString InName, TArray<FString> InTags)
+		: Mesh(InMesh), AnimBP(InAnimBP), Thumbnail(InThumbnail), Name(InName), Tags(InTags)
+	{
 	}
 };
 
