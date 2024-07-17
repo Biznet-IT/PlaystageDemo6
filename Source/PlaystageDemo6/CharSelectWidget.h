@@ -22,4 +22,6 @@ public:
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Selection")
     TArray<FCharacterInfo> CharacterInfos;
+
+    //virtual void NativeConstruct() override;
 };

@@ -18,15 +18,20 @@ struct FCharacterInfo
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSubclassOf<UAnimInstance> AnimBP;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture2D* Thumbnail;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Name;
+
 	FCharacterInfo()
 	
-		: Mesh(nullptr), AnimBP(nullptr)
+		: Mesh(nullptr), AnimBP(nullptr), Thumbnail(nullptr), Name(TEXT(""))
 		{
 
 		}
-	FCharacterInfo(USkeletalMesh* InMesh, TSubclassOf<UAnimInstance> InAnimBP)
-
-		: Mesh(InMesh), AnimBP(InAnimBP)
+	FCharacterInfo(USkeletalMesh* InMesh, TSubclassOf<UAnimInstance> InAnimBP, UTexture2D* InThumbnail, FString InName)
+		: Mesh(InMesh), AnimBP(InAnimBP), Thumbnail(InThumbnail), Name(InName)
 	{
 
 	}
