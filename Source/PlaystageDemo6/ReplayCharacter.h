@@ -11,7 +11,7 @@ struct FCharacterInfo
 {
 	GENERATED_BODY()
 
-
+	public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMesh* Mesh;
 
@@ -51,7 +51,7 @@ protected:
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	UPROPERTY(ReplicatedUsing = OnRep_CharacterMesh)
+	UPROPERTY(ReplicatedUsing=OnRep_CharacterInfo)
 	FCharacterInfo CharacterInfo;
 
 	UFUNCTION()

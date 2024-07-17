@@ -5,6 +5,8 @@
 #include "Engine/World.h"
 #include "Misc/DateTime.h"
 #include "Engine/DemoNetDriver.h"
+#include "Net/UnrealNetwork.h"
+#include "ReplayCharacter.h"
 
 FString AReplayPlayerController::GetTimestamp() const
 {
@@ -157,4 +159,30 @@ void AReplayPlayerController::StopCurrentReplay()
 			GetWorld()->GetDemoNetDriver()->StopDemo();
 		}
 	}
+}
+
+void AReplayPlayerController::ServerSelectCharacter_Implementation(FCharacterInfo CharacterInfo)
+{
+	if (CharacterInfo.Mesh && CharacterInfo.AnimBP)
+	{
+		SelectedCharacterInfo = CharacterInfo;
+
+		AReplayCharacter* PlayerCharacter = Cast<AReplayCharacter>(GetPawn());
+		if (PlayerCharacter)
+		{
+			PlayerCharacter->SetCharacterMeshAndAnimBP(CharacterInfo);
+		}
+	}
+}
+
+bool AReplayPlayerController::ServerSelectCharacter_Validate(FCharacterInfo CharacterInfo)
+{
+	return true; // Añade lógica de validación si es necesario
+}
+
+void AReplayPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AReplayPlayerController, SelectedCharacterInfo);
 }

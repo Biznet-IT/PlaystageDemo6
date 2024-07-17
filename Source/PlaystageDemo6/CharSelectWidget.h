@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ReplayCharacter.h"
 #include "Blueprint/UserWidget.h"
 #include "CharSelectWidget.generated.h"
 
@@ -20,5 +21,5 @@ public:
 
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Selection")
-    TArray<class UClass*> CharacterClasses;
+    TArray<FCharacterInfo> CharacterInfos;
 };

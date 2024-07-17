@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "ReplayCharacter.h"
 #include "ReplayPlayerController.generated.h"
 
 /**
@@ -61,6 +62,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "CurrentReplay")
 	void StopCurrentReplay();
 
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerSelectCharacter(FCharacterInfo CharacterInfo);
+
+protected:
+	//UPROPERTY(Replicated)
+	//TSubclassOf<class AReplayCharacter> SelectedCharacterClass;
+
+	UPROPERTY(Replicated)
+	FCharacterInfo SelectedCharacterInfo;
 private:
     FString GetTimestamp() const;
 };
