@@ -50,9 +50,32 @@ public:
 	// Sets default values for this character's properties
 	AReplayCharacter();
 
-	UFUNCTION(BlueprintCallable, Category = "Character Customization")
-	void SetCharacterMeshAndAnimBP(FCharacterInfo CharacterInfo);
+	UPROPERTY(ReplicatedUsing = OnRep_CharacterMesh)
+	USkeletalMesh* CharacterMesh;
 
+	UPROPERTY(ReplicatedUsing = OnRep_CharacterAnimBP)
+	TSubclassOf<UAnimInstance> CharacterAnimBP;
+
+	UFUNCTION()
+	void OnRep_CharacterMesh();
+
+	UFUNCTION()
+	void OnRep_CharacterAnimBP();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void ServerSetCharacterMeshAndAnimBP(USkeletalMesh* NewMesh, TSubclassOf<UAnimInstance> NewAnimBP);
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastSetCharacterMeshAndAnimBP(USkeletalMesh* NewMesh, TSubclassOf<UAnimInstance> NewAnimBP);
+
+	UFUNCTION(BlueprintCallable, Category = "Character Customization")
+	void SetCharacterMeshAndAnimBP(USkeletalMesh* NewMesh, TSubclassOf<UAnimInstance> NewAnimBP);
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	//UFUNCTION(BlueprintCallable, Category = "Character Customization")
+	//void SetCharacterMeshAndAnimBP(FCharacterInfo CharacterInfo);
+/*
 protected:
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -62,5 +85,5 @@ protected:
 
 	UFUNCTION()
 	void OnRep_CharacterInfo();
-
+	*/
 };

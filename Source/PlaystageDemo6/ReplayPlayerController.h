@@ -63,7 +63,7 @@ public:
 	void StopCurrentReplay();
 
 	UFUNCTION(Server, Reliable, WithValidation)
-	void ServerSelectCharacter(FCharacterInfo CharacterInfo);
+	void ServerSelectCharacter(const FCharacterInfo& CharacterInfo);
 
 protected:
 	//UPROPERTY(Replicated)

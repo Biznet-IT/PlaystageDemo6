@@ -161,21 +161,16 @@ void AReplayPlayerController::StopCurrentReplay()
 	}
 }
 
-void AReplayPlayerController::ServerSelectCharacter_Implementation(FCharacterInfo CharacterInfo)
+void AReplayPlayerController::ServerSelectCharacter_Implementation(const FCharacterInfo& CharacterInfo)
 {
-	if (CharacterInfo.Mesh && CharacterInfo.AnimBP)
+	AReplayCharacter* PlayerCharacter = Cast<AReplayCharacter>(GetCharacter());
+	if (PlayerCharacter)
 	{
-		SelectedCharacterInfo = CharacterInfo;
-
-		AReplayCharacter* PlayerCharacter = Cast<AReplayCharacter>(GetPawn());
-		if (PlayerCharacter)
-		{
-			PlayerCharacter->SetCharacterMeshAndAnimBP(CharacterInfo);
-		}
+		PlayerCharacter->SetCharacterMeshAndAnimBP(CharacterInfo.Mesh, CharacterInfo.AnimBP);
 	}
 }
 
-bool AReplayPlayerController::ServerSelectCharacter_Validate(FCharacterInfo CharacterInfo)
+bool AReplayPlayerController::ServerSelectCharacter_Validate(const FCharacterInfo& CharacterInfo)
 {
 	return true; // Añade lógica de validación si es necesario
 }
