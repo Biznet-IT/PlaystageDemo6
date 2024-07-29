@@ -65,6 +65,16 @@ public:
 	UFUNCTION(Server, Reliable, WithValidation)
 	void ServerSelectCharacter(const FCharacterInfo& CharacterInfo);
 
+	//camera reference
+	UFUNCTION(BlueprintCallable, Category = "Camera")
+	ADefaultPawn* GetCameraPawn();
+
+	//UFUNCTION(BlueprintCallable, Category = "Camera")
+	//void SetCameraPawn(ADefaultPawn* NewCameraPawn);
+
+	//UFUNCTION(BlueprintCallable, Category = "Camera")
+	//void SetCameraPosition(FVector Location, FRotator Rotation);
+
 protected:
 	//UPROPERTY(Replicated)
 	//TSubclassOf<class AReplayCharacter> SelectedCharacterClass;
@@ -73,4 +83,6 @@ protected:
 	FCharacterInfo SelectedCharacterInfo;
 private:
     FString GetTimestamp() const;
+
+	ADefaultPawn* CameraPawn;
 };

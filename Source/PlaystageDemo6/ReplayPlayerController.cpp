@@ -7,6 +7,10 @@
 #include "Engine/DemoNetDriver.h"
 #include "Net/UnrealNetwork.h"
 #include "ReplayCharacter.h"
+#include "GameFramework/DefaultPawn.h"
+//#include "Kismet/GameplayStatistics.h"
+#include <Kismet/GameplayStatics.h>
+
 
 FString AReplayPlayerController::GetTimestamp() const
 {
@@ -180,4 +184,15 @@ void AReplayPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimePropert
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AReplayPlayerController, SelectedCharacterInfo);
+}
+
+//camera reference
+ADefaultPawn* AReplayPlayerController::GetCameraPawn()
+{
+	if (!CameraPawn)
+	{
+		
+		CameraPawn = Cast<ADefaultPawn>(UGameplayStatics::GetActorOfClass(GetWorld(), ADefaultPawn::StaticClass()));
+	}
+	return CameraPawn;
 }

@@ -35,4 +35,18 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Replay Control")
     void SeekReplay(float Time);
+
+    //camera functions
+	//UFUNCTION(BlueprintCallable, Category = "Replay Control")
+	//void SetCameraPosition(FVector Location, FRotator Rotation);
+
+	UFUNCTION(BlueprintCallable, Category = "Replay Control")
+	void OnCameraSelected(const int32 CameraIndex);
+
+private:
+	UPROPERTY()
+	class AReplayPlayerController* ReplayPlayerController;
+
+protected:
+	virtual void NativeConstruct() override;
 };

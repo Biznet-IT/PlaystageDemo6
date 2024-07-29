@@ -10,6 +10,30 @@
  * 
  */
 USTRUCT(BlueprintType)
+struct FS_CameraInfo
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+	FString Name;
+
+	UPROPERTY(BlueprintReadWrite)
+	FString FriendlyName;
+
+	UPROPERTY(BlueprintReadWrite)
+    FDateTime Timestamp;
+
+	UPROPERTY(BlueprintReadWrite)
+	float LengthInMS;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector Location;
+
+	UPROPERTY(BlueprintReadWrite)
+	FRotator Rotation;
+};
+
+USTRUCT(BlueprintType)
 struct FS_ReplayInfo
 {
     GENERATED_BODY()
@@ -42,4 +66,13 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void GetReplayInfo(TArray<FS_ReplayInfo>& OutReplayInfos);
+
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+	const TArray<FS_CameraInfo>& GetCameraList() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Replays")
+	void AddCamera(const FS_CameraInfo& Camera);
+
+private:
+	TArray<FS_CameraInfo> CameraList;
 };

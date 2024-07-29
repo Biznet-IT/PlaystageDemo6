@@ -30,3 +30,13 @@ void UReplayGameInstance::GetReplayInfo(TArray<FS_ReplayInfo>& OutReplayInfos)
         OutReplayInfos.Add(ReplayInfo);
     }
 }
+
+const TArray<FS_CameraInfo>& UReplayGameInstance::GetCameraList() const
+{
+	return CameraList;
+}
+
+void UReplayGameInstance::AddCamera(const FS_CameraInfo& Camera)
+{
+	CameraList.Add(Camera);
+}
