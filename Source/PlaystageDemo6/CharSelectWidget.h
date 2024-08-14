@@ -10,6 +10,7 @@
 /**
  * 
  */
+ //Functional
 UCLASS()
 class PLAYSTAGEDEMO6_API UCharSelectWidget : public UUserWidget
 {

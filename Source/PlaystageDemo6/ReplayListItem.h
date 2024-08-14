@@ -10,6 +10,7 @@
 /**
  * 
  */
+ //Functional
 UCLASS()
 class PLAYSTAGEDEMO6_API UReplayListItem : public UUserWidget
 {

@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "ReplayCharacter.generated.h"
 
+//Functional
 USTRUCT(BlueprintType)
 struct FCharacterInfo
 {

@@ -9,6 +9,7 @@
 /**
  * 
  */
+//Functional
 USTRUCT(BlueprintType)
 struct FS_ReplayInfo
 {
