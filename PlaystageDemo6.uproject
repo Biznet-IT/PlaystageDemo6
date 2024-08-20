@@ -18,9 +18,13 @@
 		{
 			"Name": "RLPlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "UdpMessaging",
+			"Enabled": false
 		}
 	],
 	"TargetPlatforms": [
-		"Windows"
+		"Android"
 	]
 }

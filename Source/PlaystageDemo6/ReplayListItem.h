@@ -33,5 +33,5 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Replays")
     void OnDeleteClicked();
 
-    void Initialize(const FS_ReplayInfo& InReplayInfo);
+    void InitializeReplayItem(const FS_ReplayInfo& InReplayInfo);
 };

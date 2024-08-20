@@ -1,6 +1,5 @@
 // Biznet It 2024
 
-#pragma once
 #include "ReplayPlayerController.h"
 #include "Engine/World.h"
 #include "Misc/DateTime.h"

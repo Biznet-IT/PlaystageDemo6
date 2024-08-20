@@ -27,7 +27,7 @@ void UReplayMenuWidget::PopulateReplayList()
         for (const FS_ReplayInfo& ReplayInfo : ReplayInfos)
         {
             UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
-            ListItem->Initialize(ReplayInfo);
+            ListItem->InitializeReplayItem(ReplayInfo);
             ScrollBox_Replays->AddChild(ListItem);
         }
     }
@@ -66,7 +66,7 @@ void UReplayMenuWidget::SearchReplays(const FString& SearchText)
             if (ReplayInfo.Name.Contains(SearchText) || ReplayInfo.FriendlyName.Contains(SearchText))
             {
                 UReplayListItem* ListItem = CreateWidget<UReplayListItem>(this, UReplayListItem::StaticClass());
-                ListItem->Initialize(ReplayInfo);
+                ListItem->InitializeReplayItem(ReplayInfo);
                 ScrollBox_Replays->AddChild(ListItem);
             }
         }

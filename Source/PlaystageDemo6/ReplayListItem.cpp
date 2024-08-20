@@ -54,7 +54,7 @@ void UReplayListItem::OnDeleteClicked()
     */
 }
 
-void UReplayListItem::Initialize(const FS_ReplayInfo& InReplayInfo)
+void UReplayListItem::InitializeReplayItem(const FS_ReplayInfo& InReplayInfo)
 {
     ReplayInfo = InReplayInfo;
 
