@@ -18,6 +18,11 @@
 		{
 			"Name": "RLPlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "MultiplayerLevelEditor",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/9d2ba67bc3eb4510aa1a0d2cfdf98b30"
 		}
 	],
 	"TargetPlatforms": [
